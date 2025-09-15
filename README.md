@@ -8,3 +8,10 @@ Java에서 데이터베이스(MySQL)에 연결하고, SQL을 실행하는 방법
 - Gradle
 - JDBC
 - MySQL
+
+## 📝 주요 학습 내용
+- JDBC 드라이버 로딩
+- DB 연결 (Connection)
+- SQL 실행 (Statement, PreparedStatement)
+- CRUD 실습
+- 예외 처리 및 자원 해제

@@ -1,11 +1,11 @@
-package lion.jdbc;
+package lion.jdbc.practice;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-public class lionGymPractice {
+public class LionGymPractice {
     public static void main(String[] args) throws Exception {
 
         String url = "jdbc:mysql://localhost:3306/liongym";

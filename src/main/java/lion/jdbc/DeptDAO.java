@@ -1,22 +1,20 @@
 package lion.jdbc;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DeptDAO {
 
     public int insertDept(DeptDTO deptDto) {
-        String url = "jdbc:mysql://localhost:3306/liondb";
-        String user = "root";
-        String password = "root1234";
-
         String sql = "INSERT INTO DEPT(DEPTNO, DNAME, LOC) VALUES(?, ?, ?)";
         int result = 0;
 
         try (
-            Connection conn = DriverManager.getConnection(url, user, password);
+            Connection conn = DBUtil.getConnection();
             PreparedStatement ps = conn.prepareStatement(sql)
         ){
             ps.setInt(1, deptDto.getDeptNo());
@@ -32,15 +30,11 @@ public class DeptDAO {
     }
 
     public int updateDept(DeptDTO deptDto) {
-        String url = "jdbc:mysql://localhost:3306/liondb";
-        String user = "root";
-        String password = "root1234";
-
         String sql = "UPDATE DEPT SET DNAME = ? WHERE DEPTNO = ?";
         int result = 0;
 
         try (
-            Connection conn = DriverManager.getConnection(url, user, password);
+            Connection conn = DBUtil.getConnection();
             PreparedStatement ps = conn.prepareStatement(sql)
         ){
             ps.setString(1, deptDto.getDname());
@@ -54,15 +48,11 @@ public class DeptDAO {
     }
 
     public int deleteDept(DeptDTO deptDto) {
-        String url = "jdbc:mysql://localhost:3306/liondb";
-        String user = "root";
-        String password = "root1234";
-
         String sql = "DELETE FROM DEPT WHERE DEPTNO = ?";
         int result = 0;
 
         try (
-            Connection conn = DriverManager.getConnection(url, user, password);
+            Connection conn = DBUtil.getConnection();
             PreparedStatement ps = conn.prepareStatement(sql)
         ) {
             ps.setInt(1, deptDto.getDeptNo());
@@ -72,5 +62,31 @@ public class DeptDAO {
         }
 
         return result;
+    }
+
+    public List<DeptDTO> getDeptList() {
+
+        String sql = "SELECT DEPTNO, DNAME, LOC FROM DEPT";
+        List<DeptDTO> deptList = new ArrayList<>();
+
+        try (
+                Connection conn = DBUtil.getConnection();
+                PreparedStatement ps = conn.prepareStatement(sql);
+                ResultSet rs = ps.executeQuery();
+        ) {
+            while(rs.next()) {
+                DeptDTO deptDTO = new DeptDTO();
+                deptDTO.setDeptNo(rs.getInt("DEPTNO"));
+                deptDTO.setDname(rs.getString("DNAME"));
+                deptDTO.setLoc(rs.getString("LOC"));
+
+                deptList.add(deptDTO);
+            }
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return deptList;
     }
 }

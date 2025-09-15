@@ -3,10 +3,10 @@ package lion.jdbc;
 public class DeptDAOTest {
     public static void main(String[] args) {
         DeptDAO dao = new DeptDAO();
-        DeptDTO insertDTO = new DeptDTO();
         int result = 0;
 
         // INSERT
+        DeptDTO insertDTO = new DeptDTO();
         insertDTO.setDeptNo(50);
         insertDTO.setDname("LION");
         insertDTO.setLoc("SEOUL");
@@ -44,7 +44,5 @@ public class DeptDAOTest {
 
         // List - 단건 조회
         DeptDTO deptDto = dao.getDept(50);
-
-
     }
 }

@@ -89,4 +89,35 @@ public class DeptDAO {
 
         return deptList;
     }
+
+    public DeptDTO getDept(int deptNo) {
+
+        String sql = "SELECT DEPTNO, DNAME, LOC FROM DEPT WHERE DEPTNO = ?";
+        DeptDTO deptDTO = new DeptDTO();
+        ResultSet rs = null;
+
+        try (
+            Connection conn = DBUtil.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+        ) {
+            ps.setInt(1, deptNo);
+            rs = ps.executeQuery();
+
+            if (rs.next()) {
+                deptDTO.setDeptNo(rs.getInt("DEPTNO"));
+                deptDTO.setDname(rs.getString("DNAME"));
+                deptDTO.setLoc(rs.getString("Loc"));
+            }
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            DBUtil.close(rs);
+        }
+
+        // 데이터가 없으면 null을 보내는게 좋음.
+        // 빈 객체를 보내게 되면 null인지 체크하고 객체 안의 필드값도 조회해야 하기 때문이다.
+        // 어차피 다시 쓸 객체가 아니기 때문에 그냥 null로 보내면 좋다.
+        return deptDTO;
+    }
 }

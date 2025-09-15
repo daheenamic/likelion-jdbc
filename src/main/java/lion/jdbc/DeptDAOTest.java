@@ -38,5 +38,13 @@ public class DeptDAOTest {
         dao.deleteDept(deleteDTO);
 
         System.out.println("SUCCESS DELETE: " + result);
+
+        // LIST - 모든 건 조회
+        dao.getDeptList();
+
+        // List - 단건 조회
+        DeptDTO deptDto = dao.getDept(50);
+
+
     }
 }

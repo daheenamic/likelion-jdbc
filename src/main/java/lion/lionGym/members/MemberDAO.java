@@ -76,10 +76,10 @@ public class MemberDAO {
     // 등록
     public int insert(MemberDTO memberDTO) {
         int result = 0;
-        String sql = "INSERT INTO MEMBER(NAME, PHONE) VALUES(?, ?)";
+        String sql = "INSERT INTO MEMBERS(NAME, PHONE) VALUES(?, ?)";
 
         try (
-                Connection conn = lion.jdbc.DBUtil.getConnection();
+                Connection conn = DBUtil.getConnection();
                 PreparedStatement ps = conn.prepareStatement(sql)
         ){
             ps.setString(1, memberDTO.getName());
@@ -96,11 +96,11 @@ public class MemberDAO {
     // 수정
     public int update(MemberDTO memberDTO) {
         int result = 0;
-        String sql = "UPDATE MEMBER SET TRAINER_ID = ?, SESSION = ?"
+        String sql = "UPDATE MEMBERS SET TRAINER_ID = ?, SESSION = ?"
                    + "WHERE ID = ?" ;
 
         try (
-                Connection conn = lion.jdbc.DBUtil.getConnection();
+                Connection conn = DBUtil.getConnection();
                 PreparedStatement ps = conn.prepareStatement(sql)
         ){
             ps.setInt(1, memberDTO.getTrainerId());
@@ -116,10 +116,10 @@ public class MemberDAO {
     // 삭제
     public int delete(MemberDTO memberDTO) {
         int result = 0;
-        String sql = "DELETE FROM MEMBER WHERE ID = ?";
+        String sql = "DELETE FROM MEMBERS WHERE ID = ?";
 
         try (
-                Connection conn = lion.jdbc.DBUtil.getConnection();
+                Connection conn = DBUtil.getConnection();
                 PreparedStatement ps = conn.prepareStatement(sql)
         ) {
             ps.setInt(1, memberDTO.getId());
